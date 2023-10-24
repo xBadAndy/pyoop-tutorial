@@ -1,3 +1,6 @@
+import csv
+
+
 class Item:
     pay_rate = 0.8 # The pay rate after 20% discount
     all = []
@@ -15,6 +18,7 @@ class Item:
         # Actions to execute
         Item.all.append(self)
 
+    # (Instance) methods pass in the instance as the first argument (self)
     def calculate_total_price(self):
         return self.price * self.quantity
 
@@ -22,16 +26,37 @@ class Item:
         self.price = self.price * self.pay_rate
         return self.price
 
+    # Class metods pass in the class as the first argument (cls)
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open('items.csv', 'r') as f:
+            reader = csv.DictReader(f)
+            items = list(reader)
+        
+        for item in items:
+            Item(
+                name=item.get('name'),
+                price=float(item.get('price')),
+                quantity=int(item.get('quantity'))
+            )
+
+    # Static methods do not send class or instance as an argument
+    # Treat like a normal function and pass in whatever parameters are needed
+    @staticmethod
+    def is_integer(num):
+        # We will count out the floats that are point zero
+        # i.e: 5.0, 10.0
+        if isinstance(num, float):
+            # Count out the floats that are point zero
+            return num.isinteger()
+        elif isinstance(num, int):
+            return True
+        else:
+            return False
+
     def __repr__(self):
         return f"Item('{self.name}', {self.price}, {self.quantity})"
 
-item1 = Item("Phone", 100, 1)
-item2 = Item("Laptop", 1000, 3)
-item3 = Item("Cable", 10, 5)
-item4 = Item("Mouse", 50, 5)
-item5 = Item("Keyboard", 75, 5)
 
+Item.instantiate_from_csv()
 print(Item.all)
-
-for instance in Item.all:
-    print(instance.name)
