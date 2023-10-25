@@ -1,8 +1,6 @@
 from item import Item
-from phone import Phone
 
-phone1 = Phone("jscPhonev10", 500, 5, 1)
-phone2 = Phone("jscPhonev20", 700, 5, 1)
+item1 = Item("MyItem", 750)
+print(item1.name)
 
-print(Item.all)
-print(Phone.all)
+print(item1.__name)

@@ -11,12 +11,17 @@ class Item:
         assert quantity >= 0, f"Quantity {quantity} is not greater than or equal to zero!"
 
         # Assign to self object
-        self.name = name
+        self.__name = name # add __ to beginning of attribute name to make it private (inaccessible outside of class)
         self.price = price
         self.quantity = quantity
 
         # Actions to execute
         Item.all.append(self)
+    
+    @property
+    # Property Decorator = Read-Only Attribute
+    def name(self):
+        return self.__name
 
     # (Instance) methods pass in the instance as the first argument (self)
     def calculate_total_price(self):
