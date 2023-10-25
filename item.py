@@ -12,11 +12,21 @@ class Item:
 
         # Assign to self object
         self.__name = name # add __ to beginning of attribute name to make it private (inaccessible outside of class)
-        self.price = price
+        self.__price = price
         self.quantity = quantity
 
         # Actions to execute
         Item.all.append(self)
+    
+    @property
+    def price(self):
+        return self.__price
+    
+    def apply_discount(self):
+        self.__price = self.__price * self.pay_rate
+    
+    def apply_increment(self, increment_value):
+        self.__price = self.__price + self.__price * increment_value
     
     @property
     # Property Decorator = Read-Only Attribute
@@ -35,9 +45,7 @@ class Item:
     def calculate_total_price(self):
         return self.price * self.quantity
 
-    def apply_discount(self):
-        self.price = self.price * self.pay_rate
-        return self.price
+
 
     # Class metods pass in the class as the first argument (cls)
     @classmethod
