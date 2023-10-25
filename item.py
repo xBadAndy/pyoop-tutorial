@@ -21,7 +21,15 @@ class Item:
     @property
     # Property Decorator = Read-Only Attribute
     def name(self):
+        print("You are trying to get an Attribute")
         return self.__name
+    
+    @name.setter
+    def name(self, value):
+        if len(value) > 10:
+            raise Exception("The name is too long!")
+        else:
+            self.__name = value
 
     # (Instance) methods pass in the instance as the first argument (self)
     def calculate_total_price(self):
