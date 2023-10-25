@@ -78,3 +78,21 @@ class Item:
     def __repr__(self):
         # use self.__class__.__name__ to access name of child class used to create instance
         return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
+
+    def __connect(self, smtp_server):
+        pass
+    
+    def __prepare_body(self):
+        return f"""
+        Hello, Guy.and
+        We have {self.name} {self.quantity} times.
+        Regards, OtherGuy
+        """
+    
+    def __send(self):
+        pass
+    
+    def send_email(self):
+        self.__connect("server")
+        self.__prepare_body()
+        self.__send()
